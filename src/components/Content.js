@@ -2,9 +2,8 @@ import React, {useState} from "react";
 import {Row, Col, Button} from 'antd';
 import TextArea from "antd/es/input/TextArea";
 
-
 const Content = () => {
-    const [text, setText] = useState([]);
+    const [text, setText] = useState([""]);
     const onInputChange = (event) => {
         setText(event.target.value)
 
