@@ -1,25 +1,50 @@
-import React from "react";
-import {Row, Col, Button, Input} from 'antd';
+import React, {useState} from "react";
+import {Row, Col, Button} from 'antd';
+import TextArea from "antd/es/input/TextArea";
+
 
 const Content = () => {
+    const [text, setText] = useState([]);
+    const onInputChange = (event) => {
+        setText(event.target.value)
+
+    };
+    const onFormSubmit = (event) => {
+        event.preventDefault();
+        onFormSubmit(text);
+    };
     return (
         <div>
             <Row style={{background: "white"}}>
-                <Col span={12}>
+                <Col className={"left column"}
+                    span={12}>
                     <h3>
-                        Notes //MAKE A LIST with TITLES
+                        NOTES
+                      {console.log({text})}
+                      <div onSubmit={onFormSubmit}></div>
                     </h3>
 
                 </Col>
-                <Col span={12}>
-                    <Input />
-                    <hr/>
-                    <Button>Button</Button>
-                </Col>
+
+                    <Col
+                        span={12}>
+                        <h3>
+                            Enter Note
+                        </h3>
+                        <TextArea
+                            style={{textAlign: "center"}}
+                            placeholder={"Enter Your Note!"}
+                            onChange={onInputChange}
+                        />
+                        <hr/>
+                        <Button onClick={(event) => {
+                            setText(event.target.value)
+                        }}>Add</Button>
+                    </Col>
             </Row>
         </div>
-
     );
+
 }
 
 export default Content;

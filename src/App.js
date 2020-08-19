@@ -15,10 +15,10 @@ function App() {
                     <Title/>
                 </Header>
 
-              <Content/>
+                <Content/>
 
 
-            </Layout>
+             </Layout>
 
 
         </div>
