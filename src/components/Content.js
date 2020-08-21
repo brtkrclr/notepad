@@ -1,34 +1,31 @@
 import React, {useState} from "react";
-import {Row, Col, Button} from 'antd';
+import {Form, Input, Button, Row, Col} from 'antd';
 import TextArea from "antd/es/input/TextArea";
 
-const Content = () => {
-    const [note, setNote] = useState("");
-    const [title,setTitle]=useState([]);
-    const [list, setList] = useState([]);
 
-    const onNoteChange = (event) => {
-        setNote(event.target.value)
+
+const Demo = () => {
+    const [titles, setTitle] = useState("")
+    const [notes, setText] = useState("");
+    const [lists, setList] = useState([{}]);
+
+    const onTextChange = (event) => {
+        setText(event.target.value)
     };
 
     const onTitleChange = (event) => {
         setTitle(event.target.value)
-    };
-
-    const onFormSubmit = (event) => {
-        event.preventDefault();
-        setList([...list,{title}])
-
-        console.log(note)
-         //can be removed if we are going to use a button !
-    };
-    const editNotes=(event)=>{
-        event.preventDefault();
-        setTitle([...title,{note}])
     }
 
 
+    const onListSubmit = (event) => {
+        event.preventDefault();
+        setList([...lists, {id: Date.now(), title: titles, text: notes}])
+        console.log(lists)
+    };
+
     return (
+
         <div>
             <Row style={{background: "white"}}>
                 <Col className={"leftColumn"}
@@ -36,14 +33,15 @@ const Content = () => {
                     <h3>
                         NOTES
                     </h3>
-                    <ul>
-                        {list.map((list) => (
-                            <li>{list.title}
-                            <button onClick={editNotes} icon={"editIcon"}>  </button>
 
+                    <ul>
+                        {lists.map((list) => (
+                            <li key={list.id}>
+                                {list.title}{list.id}{console.log("note:",list.text)}
                             </li>
                         ))}
                     </ul>
+
                 </Col>
 
 
@@ -52,46 +50,41 @@ const Content = () => {
                         Enter Note
                     </h3>
 
-                    <form>
 
-                        <input
-                            style={{textAlign: "center"}}
-                            placeholder={"Title"}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your username!',
-                                },
-                            ]}
-                            onChange={onTitleChange}
-                        />
+                    <Form>
+                        <h3>Title</h3>
+                        <Form.Item name="title">
+                            <Input value={lists.title}
+                                   style={{textAlign: "center"}}
+                                   placeholder={"Title"}
+                                   onChange={(event => setTitle(event.target.value))}
+                                   name={"title"}
+                            />
+                        </Form.Item>
+                        <h3>Note</h3>
+                        <TextArea name="note">
+                            <Input value={lists.text}
+                                   style={{textAlign: "center"}}
+                                   type="text"
+                                   placeholder={"Enter Your Note!"}
+                                   onChange={(event => setText(event.target.value))}
+                                   name={"note"}
+                            />
+                        </TextArea>
                         <hr/>
-                        <TextArea
-                            style={{textAlign: "center"}}
-                            placeholder={"Enter Your Note!"}
-                            onChange={onNoteChange}
-                            rules={[
-                                {
-                                    required: true,
-                                    message: 'Please input your username!',
-                                },
-                            ]}
-                        />
-
-                        <hr/>
-                        <Button onClick={onFormSubmit}>
-                            Add
+                        <Button
+                            onClick={onListSubmit}
+                            style={{position: "center"}}
+                            type="primary" htmlType="submit">
+                            Submit
                         </Button>
-
-
-                    </form>
-
+                    </Form>
 
                 </Col>
             </Row>
         </div>
+
     );
+};
 
-}
-
-export default Content;
+export default Demo;
