@@ -6,8 +6,8 @@ import TextArea from "antd/es/input/TextArea";
 
 const Demo = () => {
     const [titles, setTitle] = useState("")
-    const [notes, setText] = useState("");
-    const [lists, setList] = useState([{}]);
+    const [texts, setText] = useState("");
+    const [lists, setList] = useState([]);
 
     const onTextChange = (event) => {
         setText(event.target.value)
@@ -20,7 +20,7 @@ const Demo = () => {
 
     const onListSubmit = (event) => {
         event.preventDefault();
-        setList([...lists, {id: Date.now(), title: titles, text: notes}])
+        setList([...lists, {id: Date.now(), title: titles, text: texts}])
         console.log(lists)
     };
 
@@ -37,7 +37,7 @@ const Demo = () => {
                     <ul>
                         {lists.map((list) => (
                             <li key={list.id}>
-                                {list.title}{list.id}{console.log("note:",list.text)}
+                                {list.title}
                             </li>
                         ))}
                     </ul>
@@ -62,6 +62,7 @@ const Demo = () => {
                             />
                         </Form.Item>
                         <h3>Note</h3>
+
                         <TextArea name="note">
                             <Input value={lists.text}
                                    style={{textAlign: "center"}}
