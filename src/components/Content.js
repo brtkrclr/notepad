@@ -7,20 +7,12 @@ import TextArea from "antd/es/input/TextArea";
 const Demo = () => {
     const [titles, setTitle] = useState("")
     const [texts, setText] = useState("");
-    const [lists, setList] = useState([]);
-
-    const onTextChange = (event) => {
-        setText(event.target.value)
-    };
-
-    const onTitleChange = (event) => {
-        setTitle(event.target.value)
-    }
+    const [lists, setList] = useState([{id:Date.now(),title:"",text:""}]);
 
 
     const onListSubmit = (event) => {
         event.preventDefault();
-        setList([...lists, {id: Date.now(), title: titles, text: texts}])
+        setList([...lists,{id: Date.now(), title: titles,text:texts}])
         console.log(lists)
     };
 
@@ -38,6 +30,7 @@ const Demo = () => {
                         {lists.map((list) => (
                             <li key={list.id}>
                                 {list.title}
+
                             </li>
                         ))}
                     </ul>
@@ -54,16 +47,20 @@ const Demo = () => {
                     <Form>
                         <h3>Title</h3>
                         <Form.Item name="title">
+
                             <Input value={lists.title}
                                    style={{textAlign: "center"}}
                                    placeholder={"Title"}
                                    onChange={(event => setTitle(event.target.value))}
                                    name={"title"}
                             />
+
                         </Form.Item>
+
                         <h3>Note</h3>
 
                         <TextArea name="note">
+
                             <Input value={lists.text}
                                    style={{textAlign: "center"}}
                                    type="text"
@@ -71,6 +68,7 @@ const Demo = () => {
                                    onChange={(event => setText(event.target.value))}
                                    name={"note"}
                             />
+
                         </TextArea>
                         <hr/>
                         <Button
