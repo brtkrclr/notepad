@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import {Form, Input, Button, Row, Col} from 'antd';
-import TextArea from "antd/es/input/TextArea";
 
 
 const Demo = () => {
@@ -12,6 +11,7 @@ const Demo = () => {
     const onFinish = values => {
         console.log('Success:', values);
         console.log(notes)
+        
     };
 
     return (
@@ -33,19 +33,19 @@ const Demo = () => {
 
                     <Form onFinish={onFinish}>
 
-                        <Input
+                        <Form.Item
                             type="text"
                             name="title"
-                            label="Title"
-                            value={notes.title}
-                            onChange={onChange}/>
+                            label="Title">
+                            <Input/>
+                        </Form.Item>
 
-                        <Input
+                        <Form.Item
                             type="text"
                             name="text"
-                            label="Text"
-                            value={notes.text}
-                            onChange={onChange}/>
+                            label="Text">
+                            <Input/>
+                        </Form.Item>
 
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
