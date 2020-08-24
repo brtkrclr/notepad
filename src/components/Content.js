@@ -3,16 +3,14 @@ import {Form, Input, Button, Row, Col} from 'antd';
 
 
 const Demo = () => {
-    const [notes, setNotes] = useState([{title: "", text: ""}]);
+    const [notes, setNotes] = useState([]);
 
-    const onChange = event => {
-        setNotes({...notes, [event.target.name]: event.target.value});
-    };
+
     const onFinish = values => {
-        console.log('Success:', values);
-        console.log(notes)
-        
+        setNotes([...notes, values]);
     };
+
+    console.log(notes)
 
     return (
 
@@ -23,7 +21,15 @@ const Demo = () => {
                     <h3>
                         NOTES
                     </h3>
+                    <ul>
+                        {notes.map((a) => (
+                            <li key={Math.random()}>
+                                {a.title}
+                                <button>edit</button>
+                            </li>
 
+                        ))}
+                    </ul>
                 </Col>
 
                 <Col className={"rightColumn"} span={12}>
