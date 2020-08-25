@@ -14,9 +14,10 @@ const Demo = () => {
     };
 
     const findItem = index => {
-        const item = notes.find(note => note.index === index)
-        setEditItem(item)
-    }
+        const newEditItem = { index, note: notes[index]}; 
+        setEditItem(newEditItem);
+        console.log(editItem)
+    };
 
     const onEditChange  = () => {
 
@@ -25,6 +26,7 @@ const Demo = () => {
     }
 
     console.log(notes)
+    console.log(editItem)
 
 
     return (
