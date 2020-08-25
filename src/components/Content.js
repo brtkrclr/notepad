@@ -17,6 +17,12 @@ const Demo = () => {
         setEditItem(newEditItem);
     };
 
+    const updateItem=()=>{
+        //Update the Item
+    }
+
+
+
 
     console.log(notes)
     console.log("edit item:",editItem)
