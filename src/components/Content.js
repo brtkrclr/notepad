@@ -5,11 +5,19 @@ import {Form, Input, Button, Row, Col, List} from 'antd';
 const Demo = () => {
 
     const [notes, setNotes] = useState([]);
+     const [editItem,setEditItem]=useState(null);
+
 
     const onFinish = values => {
         setNotes([...notes, values]);
 
     };
+    
+      const findItem = index => {
+        const item = notes.find(note => note.index === index)
+        setEditItem(item)
+    }
+
 
     const onEditChange = event => {
         console.log("deneme")
