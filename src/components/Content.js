@@ -1,13 +1,18 @@
 import React, {useState} from "react";
-import {Form, Input, Button, Row, Col} from 'antd';
+import {Form, Input, Button, Row, Col, List} from 'antd';
 
 
 const Demo = () => {
-    const [notes, setNotes] = useState([]);
 
+    const [notes, setNotes] = useState([]);
 
     const onFinish = values => {
         setNotes([...notes, values]);
+
+    };
+
+    const onEditChange = event => {
+        console.log("deneme")
     };
 
     console.log(notes)
@@ -21,21 +26,28 @@ const Demo = () => {
                     <h3>
                         NOTES
                     </h3>
+
+
                     <ul>
-                        {notes.map((a) => (
-                            <li key={Math.random()}>
-                                {a.title}
-                                <button>edit</button>
-                            </li>
+                        {notes.map((note, index) => ( 
+                            <List.Item >
+                                <Button onClick={() => onEditChange(index)} value={index}>Edit</Button>
+                                <List.Item.Meta
+                                    title={<a>{note.title}</a>}
+                                />
 
+                            </List.Item>
                         ))}
-                    </ul>
-                </Col>
 
+                    </ul>
+
+
+                </Col>
                 <Col className={"rightColumn"} span={12}>
                     <h3>
                         Enter Note
                     </h3>
+
 
                     <Form onFinish={onFinish}>
 
@@ -60,6 +72,7 @@ const Demo = () => {
                         </Form.Item>
                     </Form>
                 </Col>
+
             </Row>
         </div>
 
