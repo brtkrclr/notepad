@@ -1,29 +1,31 @@
-import React, {useState} from "react";
+import React, { useState} from "react";
 import {Form, Input, Button, Row, Col, List} from 'antd';
 
 
 const Demo = () => {
 
     const [notes, setNotes] = useState([]);
-     const [editItem,setEditItem]=useState(null);
+    const [editItem,setEditItem]=useState(null);
+
 
 
     const onFinish = values => {
         setNotes([...notes, values]);
-
     };
-    
-      const findItem = index => {
+
+    const findItem = index => {
         const item = notes.find(note => note.index === index)
         setEditItem(item)
     }
 
+    const onEditChange  = () => {
 
-    const onEditChange = event => {
         console.log("deneme")
-    };
+
+    }
 
     console.log(notes)
+
 
     return (
 
@@ -37,9 +39,9 @@ const Demo = () => {
 
 
                     <ul>
-                        {notes.map((note, index) => ( 
-                            <List.Item >
-                                <Button onClick={() => onEditChange(index)} value={index}>Edit</Button>
+                        {notes.map((note, index) => (
+                            <List.Item value={index}>
+                                <Button onClick={() => findItem(index)} >Edit</Button>
                                 <List.Item.Meta
                                     title={<a>{note.title}</a>}
                                 />
@@ -62,19 +64,21 @@ const Demo = () => {
                         <Form.Item
                             type="text"
                             name="title"
-                            label="Title">
+                            label="Title"
+                            initialValue={editItem}>
                             <Input/>
                         </Form.Item>
 
                         <Form.Item
                             type="text"
                             name="text"
-                            label="Text">
+                            label="Text"
+                            initialValue={editItem}>
                             <Input/>
                         </Form.Item>
 
                         <Form.Item>
-                            <Button type="primary" htmlType="submit">
+                            <Button type="primary" htmlType="submit" >
                                 Submit
                             </Button>
                         </Form.Item>
