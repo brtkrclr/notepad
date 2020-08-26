@@ -1,102 +1,102 @@
 import React, {useState} from "react";
 import {Form, Input, Button, Row, Col, List} from 'antd';
 import {useForm} from "antd/es/form/Form";
+import {isElementOfType} from "react-dom/test-utils";
 
 const Demo = () => {
-    const [form] = useForm();
-    const [notes, setNotes] = useState([]);
-    const [selectedItem, setSelectedItem] = useState();
+        const [form] = useForm();
+        const [notes, setNotes] = useState([]);
+        const [selectedItem, setSelectedItem] = useState();
 
 
-    const onFinish = values => {
-        setNotes([...notes, values]);
-    };
+        const onFinish = (values,index) => {
+            const item=notes[index];
+
+            if (item===-1) {
+                let newArray=[...notes]
+
+                setNotes([...notes, selectedItem]);
+            } else {
+                setNotes([...notes, values]);
+            }
+
+        };
+        const findItem = index => {
+            const newSelectedItem = notes[index];
+            setSelectedItem(newSelectedItem);
+        };
+//show the selected value!
+        React.useEffect(() => {
+            form.setFieldsValue(selectedItem);
+        });
+
+        console.log("selected item:", selectedItem)
+        console.log(notes)
+
+        return (
+
+            <div>
+                <Row style={{background: "white"}}>
+                    <Col className={"leftColumn"}
+                         span={12}>
+                        <h3>
+                            NOTES
+                        </h3>
 
 
-    const findItem = index => {
-        const newSelectedItem = notes[index];
-        setSelectedItem(newSelectedItem);
-    };
+                        <ul>
+                            {notes.map((note, index) => (
+                                <List.Item>
+                                    <Button onClick={() => findItem(index)}>Edit</Button>
+                                    <List.Item.Meta
+                                        title={<p>{note.title}</p>}
+                                        description={<p>{note.text}</p>}
+                                    />
 
-    const editItem=()=>{
+                                </List.Item>
+                            ))}
+                        </ul>
 
-
-    };
-
-    //show the selected value!
-    React.useEffect(() => {
-        form.setFieldsValue(selectedItem);
-    });
-
-    console.log("selected item:", selectedItem)
-    console.log(notes)
-
-
-    return (
-
-        <div>
-            <Row style={{background: "white"}}>
-                <Col className={"leftColumn"}
-                     span={12}>
-                    <h3>
-                        NOTES
-                    </h3>
-
-
-                    <ul>
-                        {notes.map((note, index) => (
-                            <List.Item>
-                                <Button onClick={() => findItem(index)}>Edit</Button>
-                                <List.Item.Meta
-                                    title={<p>{note.title}</p>}
-                                    description={<p>{note.text}</p>}
-                                />
-
-                            </List.Item>
-                        ))}
-                    </ul>
-
-                </Col>
-                <Col className={"rightColumn"} span={12}>
-                    <h3>
-                        Enter Note
-                    </h3>
-
-
-                    <Form
-                        onFinish={onFinish}
-                        form={form}
-                    >
-
-                        <Form.Item
-                            type="text"
-                            name="title"
-                            label="Title"
+                    </Col>
+                    <Col className={"rightColumn"} span={12}>
+                        <h3>
+                            Enter Note
+                        </h3>
+                        <Form
+                            onFinish={onFinish}
+                            form={form}
                         >
-                            <Input/>
-                        </Form.Item>
 
-                        <Form.Item
-                            type="text"
-                            name="text"
-                            label="Text"
+                            <Form.Item
+                                type="text"
+                                name="title"
+                                label="Title"
+                            >
+                                <Input/>
+                            </Form.Item>
 
-                        >
-                            <Input/>
-                        </Form.Item>
+                            <Form.Item
+                                type="text"
+                                name="text"
+                                label="Text"
 
-                        <Form.Item>
-                            <Button type="primary" htmlType="submit">
-                                Submit
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </Col>
+                            >
+                                <Input/>
+                            </Form.Item>
 
-            </Row>
-        </div>
+                            <Form.Item>
+                                <Button type="primary" htmlType="submit">
+                                    Submit
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </Col>
 
-    );
-};
+                </Row>
+            </div>
+
+        );
+    }
+;
 
 export default Demo;
