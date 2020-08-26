@@ -1,31 +1,35 @@
 import React, {useState} from "react";
 import {Form, Input, Button, Row, Col, List} from 'antd';
-
+import {useForm} from "antd/es/form/Form";
 
 const Demo = () => {
-
+    const [form] = useForm();
     const [notes, setNotes] = useState([]);
-    const [editItem, setEditItem] = useState(null);
+    const [selectedItem, setSelectedItem] = useState();
 
 
     const onFinish = values => {
         setNotes([...notes, values]);
     };
 
+
     const findItem = index => {
-        var newEditItem = notes[index];
-        setEditItem(newEditItem);
+        const newSelectedItem = notes[index];
+        setSelectedItem(newSelectedItem);
     };
 
-    const updateItem=()=>{
-        //Update the Item
-    }
+    const editItem=()=>{
 
 
+    };
 
+    //show the selected value!
+    React.useEffect(() => {
+        form.setFieldsValue(selectedItem);
+    });
 
+    console.log("selected item:", selectedItem)
     console.log(notes)
-    console.log("edit item:",editItem)
 
 
     return (
@@ -41,17 +45,16 @@ const Demo = () => {
 
                     <ul>
                         {notes.map((note, index) => (
-                            <List.Item value={index}>
+                            <List.Item>
                                 <Button onClick={() => findItem(index)}>Edit</Button>
                                 <List.Item.Meta
                                     title={<p>{note.title}</p>}
+                                    description={<p>{note.text}</p>}
                                 />
 
                             </List.Item>
                         ))}
-
                     </ul>
-
 
                 </Col>
                 <Col className={"rightColumn"} span={12}>
@@ -60,7 +63,10 @@ const Demo = () => {
                     </h3>
 
 
-                    <Form onFinish={onFinish}>
+                    <Form
+                        onFinish={onFinish}
+                        form={form}
+                    >
 
                         <Form.Item
                             type="text"
@@ -74,6 +80,7 @@ const Demo = () => {
                             type="text"
                             name="text"
                             label="Text"
+
                         >
                             <Input/>
                         </Form.Item>
