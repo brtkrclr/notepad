@@ -6,7 +6,7 @@ const Demo = () => {
         const [form] = useForm();
         const [notes, setNotes] = useState([]);
         const [selectedItem, setSelectedItem] = useState([]);
-        
+
         //submit if the value does not exist, upgrade if the value exist
         const onFinish = (values) => {
             const newNote = notes.findIndex((e) => e.id === values.id);
@@ -26,21 +26,19 @@ const Demo = () => {
             const newSelectedItem = notes.find((note) => note.id === id);
             setSelectedItem(newSelectedItem);
         };
-
         //show the selected value!
         React.useEffect(() => {
             form.setFieldsValue(selectedItem);
         });
-
         console.log("selected item:", selectedItem)
         console.log(notes)
         return (
-            <div>
-                <Row style={{background: "white"}}>
+            <div className="enterSpace">
+                <Row>
                     <Col className={"leftColumn"}
                          span={12}>
                         <h3>
-                            NOTES
+                            Notes
                         </h3>
                         <ul>
                             {notes.map((note) => (
@@ -48,7 +46,6 @@ const Demo = () => {
                                     <Button onClick={() => findItem(note.id)}>Edit</Button>
                                     <List.Item.Meta
                                         title={<p>{note.title}</p>}
-                                        description={<p>{note.text}</p>}
                                     />
                                 </List.Item>
                             ))}
@@ -65,8 +62,7 @@ const Demo = () => {
                                 type="text"
                                 name="id"
                                 label="ID"
-                                hidden={true}
-                            >
+                                hidden={true}>
                             </Form.Item>
                             <Form.Item
                                 type="text"
@@ -87,7 +83,6 @@ const Demo = () => {
                             </Form.Item>
                         </Form>
                     </Col>
-
                 </Row>
             </div>
         );
