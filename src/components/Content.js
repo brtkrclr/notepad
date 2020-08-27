@@ -1,31 +1,32 @@
 import React, {useState} from "react";
 import {Form, Input, Button, Row, Col, List} from 'antd';
 import {useForm} from "antd/es/form/Form";
-import {isElementOfType} from "react-dom/test-utils";
 
 const Demo = () => {
         const [form] = useForm();
         const [notes, setNotes] = useState([]);
-        const [selectedItem, setSelectedItem] = useState();
+        const [selectedItem, setSelectedItem] = useState([]);
 
-
-        const onFinish = (values,index) => {
-            const item=notes[index];
-
-            if (item===-1) {
-                let newArray=[...notes]
-
-                setNotes([...notes, selectedItem]);
+        const onFinish = (values) => {
+            const newNote = notes.findIndex((e) => e.id === values.id);
+            if (newNote === -1) {
+                setNotes([...notes, {id: Date.now(), title: values.title, text: values.text}]);
+                form.resetFields()
             } else {
-                setNotes([...notes, values]);
+                notes[newNote] = values
+                form.resetFields()
+                console.log("updated NOtes:", notes)
+                setNotes(notes)
+                setSelectedItem(null)
             }
-
         };
-        const findItem = index => {
-            const newSelectedItem = notes[index];
+
+        const findItem = id => {
+            const newSelectedItem = notes.find((note) => note.id === id);
             setSelectedItem(newSelectedItem);
         };
-//show the selected value!
+
+        //show the selected value!
         React.useEffect(() => {
             form.setFieldsValue(selectedItem);
         });
@@ -42,21 +43,17 @@ const Demo = () => {
                         <h3>
                             NOTES
                         </h3>
-
-
                         <ul>
-                            {notes.map((note, index) => (
+                            {notes.map((note) => (
                                 <List.Item>
-                                    <Button onClick={() => findItem(index)}>Edit</Button>
+                                    <Button onClick={() => findItem(note.id)}>Edit</Button>
                                     <List.Item.Meta
                                         title={<p>{note.title}</p>}
                                         description={<p>{note.text}</p>}
                                     />
-
                                 </List.Item>
                             ))}
                         </ul>
-
                     </Col>
                     <Col className={"rightColumn"} span={12}>
                         <h3>
@@ -64,23 +61,26 @@ const Demo = () => {
                         </h3>
                         <Form
                             onFinish={onFinish}
-                            form={form}
-                        >
+                            form={form}>
+                            <Form.Item
+                                type="text"
+                                name="id"
+                                label="ID"
+                                hidden={true}
+                            >
+                            </Form.Item>
 
                             <Form.Item
                                 type="text"
                                 name="title"
-                                label="Title"
-                            >
+                                label="Title">
                                 <Input/>
                             </Form.Item>
 
                             <Form.Item
                                 type="text"
                                 name="text"
-                                label="Text"
-
-                            >
+                                label="Text">
                                 <Input/>
                             </Form.Item>
 
