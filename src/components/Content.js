@@ -1,8 +1,10 @@
 import React, {useState} from "react";
 import {Form, Input, Button, Row, Col, List} from 'antd';
 import {useForm} from "antd/es/form/Form";
+import {EditFilled} from "@ant-design/icons";
+import TextArea from "antd/es/input/TextArea";
 
-const Demo = () => {
+const Content = () => {
         const [form] = useForm();
         const [notes, setNotes] = useState([]);
         const [selectedItem, setSelectedItem] = useState([]);
@@ -30,6 +32,7 @@ const Demo = () => {
         React.useEffect(() => {
             form.setFieldsValue(selectedItem);
         });
+
         console.log("selected item:", selectedItem)
         console.log(notes)
         return (
@@ -37,19 +40,23 @@ const Demo = () => {
                 <Row>
                     <Col className={"leftColumn"}
                          span={12}>
-                        <h3>
-                            Notes
-                        </h3>
-                        <ul>
-                            {notes.map((note) => (
-                                <List.Item>
-                                    <Button onClick={() => findItem(note.id)}>Edit</Button>
-                                    <List.Item.Meta
-                                        title={<p>{note.title}</p>}
-                                    />
-                                </List.Item>
-                            ))}
-                        </ul>
+                        <div className="notes1">
+                            <h3>
+                                Notes
+                            </h3>
+                            <ul>
+                                {notes.map((note) => (
+                                    <div className="noteCard">
+                                        <List.Item>
+                                            <EditFilled onClick={() => findItem(note.id)}></EditFilled>
+                                            <List.Item.Meta
+                                                title={<p>{note.title}</p>}
+                                            />
+                                        </List.Item>
+                                    </div>
+                                ))}
+                            </ul>
+                        </div>
                     </Col>
                     <Col className={"rightColumn"} span={12}>
                         <h3>
@@ -62,19 +69,32 @@ const Demo = () => {
                                 type="text"
                                 name="id"
                                 label="ID"
-                                hidden={true}>
+                                hidden={true}
+                            >
                             </Form.Item>
                             <Form.Item
                                 type="text"
                                 name="title"
-                                label="Title">
+                                label="Title"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your Title!',
+                                    },
+                                ]}>
                                 <Input/>
                             </Form.Item>
                             <Form.Item
                                 type="text"
                                 name="text"
-                                label="Text">
-                                <Input/>
+                                label="Text"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your Text!',
+                                    },
+                                ]}>
+                                <TextArea/>
                             </Form.Item>
                             <Form.Item>
                                 <Button type="primary" htmlType="submit">
@@ -83,10 +103,11 @@ const Demo = () => {
                             </Form.Item>
                         </Form>
                     </Col>
+
                 </Row>
             </div>
         );
     }
 ;
 
-export default Demo;
+export default Content;
