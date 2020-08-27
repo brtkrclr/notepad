@@ -2,25 +2,22 @@ import React from 'react';
 import './App.css';
 import Title from "./components/Title";
 import {Layout} from "antd";
-import Content from "./components/Content";
+import Demo from "./components/Demo";
 
 const {Header} = Layout;
 
 
 function App() {
     return (
-        <div className="App">
-            <Layout>
-                <Header style={{background: "white"}} className="header">
+        <div className="container">
+            <div className="App">
+                <Header>
                     <Title/>
                 </Header>
-
-                <Content/>
-
-
-             </Layout>
-
-
+                <Layout>
+                    <Demo/>
+                </Layout>
+            </div>
         </div>
     );
 }
