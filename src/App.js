@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Title from "./components/Title";
 import {Layout} from "antd";
-import Demo from "./components/Demo";
+import Content from "./components/Content";
 
 const {Header} = Layout;
 
@@ -15,7 +15,7 @@ function App() {
                     <Header>
                         <Title/>
                     </Header>
-                    <Demo/>
+                    <Content/>
                 </Layout>
             </div>
         </div>
