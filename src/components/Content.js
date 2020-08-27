@@ -6,7 +6,8 @@ const Demo = () => {
         const [form] = useForm();
         const [notes, setNotes] = useState([]);
         const [selectedItem, setSelectedItem] = useState([]);
-
+        
+        //submit if the value does not exist, upgrade if the value exist
         const onFinish = (values) => {
             const newNote = notes.findIndex((e) => e.id === values.id);
             if (newNote === -1) {
@@ -20,7 +21,7 @@ const Demo = () => {
                 setSelectedItem(null)
             }
         };
-
+        //finds the clicked item
         const findItem = id => {
             const newSelectedItem = notes.find((note) => note.id === id);
             setSelectedItem(newSelectedItem);
@@ -33,9 +34,7 @@ const Demo = () => {
 
         console.log("selected item:", selectedItem)
         console.log(notes)
-
         return (
-
             <div>
                 <Row style={{background: "white"}}>
                     <Col className={"leftColumn"}
@@ -69,21 +68,18 @@ const Demo = () => {
                                 hidden={true}
                             >
                             </Form.Item>
-
                             <Form.Item
                                 type="text"
                                 name="title"
                                 label="Title">
                                 <Input/>
                             </Form.Item>
-
                             <Form.Item
                                 type="text"
                                 name="text"
                                 label="Text">
                                 <Input/>
                             </Form.Item>
-
                             <Form.Item>
                                 <Button type="primary" htmlType="submit">
                                     Submit
@@ -94,7 +90,6 @@ const Demo = () => {
 
                 </Row>
             </div>
-
         );
     }
 ;
